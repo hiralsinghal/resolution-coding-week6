@@ -17,18 +17,6 @@
 #define HEIGHT 30
 #define WIDTH 100
 
-int main() {
-    // terminal
-    printf("\x1b[8;%d;%dt", HEIGHT +1, WIDTH +2);
-    printf("\x1b[?25l");
-    CLEAR_SCREEN();
-
-    SLEEP(5);
-    CLEAR_SCREEN();
-
-    return 0;
-}
-
 int make_screen_array(char *screen_buffer) {
     screen_buffer[0] = '\0';
     for (int y = 0; y < HEIGHT; y++) {
@@ -55,6 +43,33 @@ int draw_symbol(int ball_x, int ball_y, char *screen_buffer, char symbol) {
     printf("%s", screen_buffer);
 
     fflush(stdout);
+
+    return 0;
+}
+
+double ask_for_data(char *question) {
+    while(1) {
+        char input_buffer[10];
+
+        printf("Enter %s: " question);
+        fgets(input_buffer, 10, stdin);
+
+        char *temp_pointer = strchr(input_buffer, '\n')
+    }
+}
+
+int main() {
+    // terminal
+    printf("\x1b[8;%d;%dt", HEIGHT +1, WIDTH +2);
+    printf("\x1b[?25l");
+    CLEAR_SCREEN();
+
+    char *screen_buffer = malloc((WIDTH + 1) * HEIGHT + 1);
+    make_screen_array(screen_buffer);
+    draw_symbol(10, 10, screen_buffer, 'o')
+
+    SLEEP(5);
+    CLEAR_SCREEN();
 
     return 0;
 }
