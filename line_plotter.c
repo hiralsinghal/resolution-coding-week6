@@ -54,11 +54,23 @@ double ask_for_data(char *question) {
         printf("Enter %s: " question);
         fgets(input_buffer, 10, stdin);
 
-        char *temp_pointer = strchr(input_buffer, '\n')
+        char *temp_pointer = strchr(input_buffer, '\n');
+        if (temp_pointer) *temp_pointer = '\0';
+
+        double output = strtod(input_buffer, &temp_pointer);
+
+        if(*temp_pointer == '\0') {
+            return output;
+        } else {
+            printf("Please enter a number!\n");
+        }
     }
 }
 
 int main() {
+    double slope = ask_for_data("slope");
+    double y_intercept = ask_for_data("y_intercept");
+    
     // terminal
     printf("\x1b[8;%d;%dt", HEIGHT +1, WIDTH +2);
     printf("\x1b[?25l");
