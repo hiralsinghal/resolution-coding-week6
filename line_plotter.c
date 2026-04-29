@@ -153,7 +153,22 @@ int draw_max_min_scale(int *bounds, char *screen_buffer) {
     if (max_len > WIDTH) {
         max_len = WIDTH;
     }
+    memcpy(&screen_buffer[0], max_string, max_len);
+
+    int location = (HEIGHT - 1) * (WIDTH + 1);
+    size_t min_len = strlen(min_string);
+    if (min_len > WIDTH) {
+        min_len = WIDTH;
+    }
+    memcpy(&screen_buffer[location], min_string, min_len);
+
+    printf("\x1b[H");
+    printf("%s", screen_buffer);
+    fflush(stdout);
+
+    return 0;
 }
+
 int main() {
     double slope = ask_for_data("slope");
     double y_intercept = ask_for_data("y_intercept");
